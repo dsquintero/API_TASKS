@@ -8,4 +8,4 @@ const fields = {
     updatedAt: Date     
 }
 
-module.exports = mongoose.model('task', fields)
+module.exports = _mongoose.model('task', fields)
