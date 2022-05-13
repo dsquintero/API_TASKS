@@ -1,3 +1,5 @@
+const Model =  require('../models/task')
+
 var lst_task = [];
 
 async function _getAll()
@@ -11,7 +13,15 @@ async function _get(id)
 }
 
 async function _post(task)
-{
+{  
+  const document = new Model(task)
+  try {
+    const data  =  await document.save();
+    
+  } catch (error) {
+    
+  }
+
   lst_task.push(task)
   return task.id;
 }
