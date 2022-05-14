@@ -26,9 +26,17 @@ router.get('/:id', async function(req, res, next) {
 
     try {
         const data = await userService._get(id);
+        if(data){
+            res.status(200);
+            res.json({ data: data} );
+        }else{
+            next({
+                statusCode:404,
+                message: 'Document not found'
+            })
+        }
 
-        res.status(200);
-        res.json({ data: data} );
+        
       
     } catch (err) {
     //   console.error(`Error al leer user`, err.message);
