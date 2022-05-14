@@ -6,10 +6,16 @@ const userService = require('../services/user');
 /* GET ALL user */
 router.get('/', async function(req, res, next) {
   try {
-    res.json(await userService._getAll());
+      
+    const data = await userService._getAll();
+      
+    res.status(200);
+    res.json({ data: data} );
+    
   } catch (err) {
-    console.error(`Error al leer user`, err.message);
-    res.status(400).json({'message':err.message});
+    // console.error(`Error al leer user`, err.message);
+    // res.status(400).json({'message':err.message});
+    next(err)
   }
 });
 
@@ -37,7 +43,7 @@ router.post('/', async function(req, res, next) {
       }
 
       const data = await userService._post(user);
-      
+
       res.status(201);
       res.json({ data: data} );
 

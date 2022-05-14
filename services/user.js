@@ -4,7 +4,8 @@ const Model =  require('../models/user')
 
 async function _getAll()
 {
-  return lst_user;
+    const data  =  await Model.find({ status: true }).exec();
+    return data;
 }
 
 async function _get(id)
