@@ -64,9 +64,8 @@ http://localhost:3000/api/task
 #### Request Body
 ```sh
 {
-    "id":3,
     "description":"Enviar Correo",
-    "author":"Michael"
+    "author":"627f1f2eb22eaebf29d174db"
 }
 ```
 
@@ -81,7 +80,7 @@ http://localhost:3000/api/task/{id}
 ```sh
 {
     "description":"Enviar Correo",
-    "author":"Daniel"
+    "author":"627f1f2eb22eaebf29d174db"
 }
 ```
 
