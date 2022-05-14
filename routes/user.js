@@ -30,10 +30,15 @@ router.get('/:id', async function(req, res, next) {
             res.status(200);
             res.json({ data: data} );
         }else{
-            next({
+            res.status(404);
+            res.json({
                 statusCode:404,
                 message: 'Document not found'
-            })
+            } );
+            // next({
+            //     statusCode:404,
+            //     message: 'Document not found'
+            // })
         }
 
         
@@ -47,7 +52,7 @@ router.get('/:id', async function(req, res, next) {
 
 /* POST user */
 router.post('/', async function(req, res, next) {
-    const { body = {} } = req;
+    const { body = {} } = req;    
     try {      
       const user = 
       {
@@ -73,21 +78,47 @@ router.post('/', async function(req, res, next) {
 
   /* PUT user */
   router.put('/:id', async function(req, res, next) {
+    const { body = {} } = req;
+    const { params = {} } = req;
+    const { id = {} } = params;
     try {
-      res.json(await userService._put(req.params.id, req.body));
+        const data = await userService._put(id,body);
+        if(data){
+            res.status(200);
+            res.json({ data: data} );
+        }else{
+            next({
+                statusCode:404,
+                message: 'Document not found'
+            })
+        }      
     } catch (err) {
-      console.error(`Error al actulizar user`, err.message);
-      res.status(400).json({'message':err.message});
+    //   console.error(`Error al actulizar user`, err.message);
+    //   res.status(400).json({'message':err.message});
+        next(err);
     }
   });
 
   /* DELETE user */
   router.delete('/:id', async function(req, res, next) {
+    const { params = {} } = req;
+    const { id = {} } = params;
+
     try {
-      res.json(await userService._delete(req.params.id));
+        const data = await userService._delete(id);
+        if(data){
+            res.status(200);
+            res.json({ data: data} );
+        }else{
+            next({
+                statusCode:404,
+                message: 'Document not found'
+            })
+        }
     } catch (err) {
-      console.error(`Error al leer user`, err.message);
-      res.status(400).json({'message':err.message});
+    //   console.error(`Error al leer user`, err.message);
+    //   res.status(400).json({'message':err.message});
+    next(err);
     }
   });  
 

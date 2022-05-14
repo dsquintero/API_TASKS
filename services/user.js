@@ -23,20 +23,15 @@ async function _post(user)
 
 async function _put(id,user)
 {
-  var item = lst_user.find(w => w.id == id)
-  item.description = user.description;
-  item.author = user.author;
-  item.updatedAt = new Date();
-  return item;
+
+    const data  = await Model.findByIdAndUpdate(id, user)
+    return data;
 }
 
 async function _delete(id)
 {
-  const index = lst_user.findIndex(w=> w.id == id);
-  if (index > -1) {
-    lst_user.splice(index, 1); // 2nd parameter means remove one item only
-  }
-  return lst_user;
+  const data = _put(id,{status:false})
+  return data  
 }
 
   module.exports = {
