@@ -9,8 +9,8 @@ async function _getAll()
 }
 
 async function _get(id)
-{
-    const data  =  await Model.findById(id,function (err, data) {}).exec() //{};
+{    
+    const data  =  await Model.findById(id).exec() //{};
     return data;
 }
 
