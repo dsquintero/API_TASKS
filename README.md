@@ -22,6 +22,7 @@ Dillinger uses a number of open source projects to work properly:
 
 - [node.js]
 - [Express]
+- [mongoose]
 
 ## Installation
 
@@ -90,3 +91,52 @@ http://localhost:3000/api/task/{id}
 DELETE /task/{id}
 
 http://localhost:3000/api/task/{id}
+
+
+GET /user/
+
+http://localhost:3000/api/user/
+
+### Get User by Id
+#### Request
+
+GET /user/{id}
+
+http://localhost:3000/api/user/{id}
+
+### New User
+#### Request
+
+POST /user/
+
+http://localhost:3000/api/user
+
+#### Request Body
+```sh
+{
+    "firstname": "Pedro",
+	"lastname": "Perez",
+	"email": "test@domain.com"
+}
+```
+
+### Update User
+#### Request
+
+PUT /user/{id}
+
+http://localhost:3000/api/user/{id}
+
+#### Request Body
+```sh
+{
+    "firstname":"Martinez"
+}
+```
+
+### Delete User
+#### Request
+
+DELETE /user/{id}
+
+http://localhost:3000/api/user/{id}
