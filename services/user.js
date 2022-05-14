@@ -30,7 +30,7 @@ async function _put(id,user)
 
 async function _delete(id)
 {
-  const data = _put(id,{status:false})
+  const data = _put(id,{status:false,updatedAt:new Date()})
   return data  
 }
 

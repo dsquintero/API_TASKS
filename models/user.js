@@ -6,7 +6,7 @@ const fields = {
     email:{ type:String, unique:true },
     status: Boolean,
     createdAt: Date,
-    updateAt: Date     
+    updatedAt: Date
 }
 
 module.exports = _mongoose.model('user', fields)

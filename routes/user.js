@@ -45,7 +45,7 @@ router.get('/:id', async function(req, res, next) {
       
     } catch (err) {
       console.error(`Error al leer user`, err.message);
-      res.status(400).json({'message':err.message});
+      res.status(400).json({'message':err});
     //next(err)
     }
   });
@@ -82,6 +82,7 @@ router.post('/', async function(req, res, next) {
     const { params = {} } = req;
     const { id = {} } = params;
     try {
+        Object.assign( body ,{ updatedAt:new Date() })
         const data = await userService._put(id,body);
         if(data){
             res.status(200);
