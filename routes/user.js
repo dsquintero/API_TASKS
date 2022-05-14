@@ -1,30 +1,30 @@
 const express = require('express');
 const router = express.Router();
 
-const taskService = require('../services/task');
+const userService = require('../services/user');
 
-/* GET ALL task */
+/* GET ALL user */
 router.get('/', async function (req, res, next) {
   try {
-    const data = await taskService._getAll();
+
+    const data = await userService._getAll();
 
     res.status(200);
     res.json({ data: data });
+
   } catch (err) {
     res.status(400)
     res.json({ data: err });
   }
 });
 
-/* GET BY ID task */
+/* GET BY ID user */
 router.get('/:id', async function (req, res, next) {
   const { params = {} } = req;
   const { id = {} } = params;
 
   try {
-    res.json(await taskService._get(req.params.id));
-
-    const data = taskService._get(id);
+    const data = await userService._get(id);
     if (data) {
       res.status(200);
       res.json({ data: data });
@@ -36,28 +36,29 @@ router.get('/:id', async function (req, res, next) {
       });
     }
 
+
+
   } catch (err) {
     res.status(400)
     res.json({ data: err });
   }
 });
 
-/* POST task */
+/* POST user */
 router.post('/', async function (req, res, next) {
   const { body = {} } = req;
-
-
   try {
-
-    const task =
+    const user =
     {
-      description: body.description,
-      author: body.author,
+      firstname: body.firstname,
+      lastname: body.lastname,
+      email: body.email,
+      status: true,
       createdAt: new Date(),
       updatedAt: new Date()
     }
 
-    const data = await taskService._post(task);
+    const data = await userService._post(user);
 
     res.status(201);
     res.json({ data: data });
@@ -68,16 +69,14 @@ router.post('/', async function (req, res, next) {
   }
 });
 
-/* PUT task */
+/* PUT user */
 router.put('/:id', async function (req, res, next) {
   const { body = {} } = req;
   const { params = {} } = req;
   const { id = {} } = params;
-
   try {
-
     Object.assign(body, { updatedAt: new Date() })
-    const data = await taskService._put(id, body);
+    const data = await userService._put(id, body);
     if (data) {
       res.status(200);
       res.json({ data: data });
@@ -88,22 +87,19 @@ router.put('/:id', async function (req, res, next) {
         message: 'Document not found'
       });
     }
-
   } catch (err) {
     res.status(400)
     res.json({ data: err });
   }
 });
 
-/* DELETE task */
+/* DELETE user */
 router.delete('/:id', async function (req, res, next) {
   const { params = {} } = req;
   const { id = {} } = params;
 
   try {
-
-    const data = await taskService._delete(id);
-
+    const data = await userService._delete(id);
     if (data) {
       res.status(200);
       res.json({ data: data });
@@ -114,7 +110,6 @@ router.delete('/:id', async function (req, res, next) {
         message: 'Document not found'
       });
     }
-
   } catch (err) {
     res.status(400)
     res.json({ data: err });
