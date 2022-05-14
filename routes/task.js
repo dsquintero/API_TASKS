@@ -31,7 +31,7 @@ router.post('/', async function(req, res, next) {
         description:req.body.description,
         author:req.body.author,
         createdAt:new Date(),
-        updatedAt:new Date()        
+        updatedAt:new Date()   
       };
       var taskId = await taskService._post(entitie);
       res.json(entitie);
