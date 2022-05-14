@@ -4,62 +4,121 @@ const router = express.Router();
 const taskService = require('../services/task');
 
 /* GET ALL task */
-router.get('/', async function(req, res, next) {
+router.get('/', async function (req, res, next) {
   try {
-    res.json(await taskService._getAll());
+    const data = await taskService._getAll();
+
+    res.status(200);
+    res.json({ data: data });
   } catch (err) {
-    console.error(`Error al leer task`, err.message);
-    res.status(400).json({'message':err.message});
+    res.status(400)
+    res.json({ data: err });
   }
 });
 
 /* GET BY ID task */
-router.get('/:id', async function(req, res, next) {
-    try {
-      res.json(await taskService._get(req.params.id));
-    } catch (err) {
-      console.error(`Error al leer task`, err.message);
-      res.status(400).json({'message':err.message});
+router.get('/:id', async function (req, res, next) {
+  const { params = {} } = req;
+  const { id = {} } = params;
+
+  try {
+    res.json(await taskService._get(req.params.id));
+
+    const data = taskService._get(id);
+    if (data) {
+      res.status(200);
+      res.json({ data: data });
+    } else {
+      res.status(404);
+      res.json({
+        statusCode: 404,
+        message: 'Document not found'
+      });
     }
-  });
+
+  } catch (err) {
+    res.status(400)
+    res.json({ data: err });
+  }
+});
 
 /* POST task */
-router.post('/', async function(req, res, next) {
-    try {      
-      var entitie = {
-        id:req.body.id,
-        description:req.body.description,
-        author:req.body.author,
-        createdAt:new Date(),
-        updatedAt:new Date()   
-      };
-      var taskId = await taskService._post(entitie);
-      res.json(entitie);
+router.post('/', async function (req, res, next) {
+  const { body = {} } = req;
 
-    } catch (err) {
-      console.error(`Error al crear task`, err.message);
-      res.status(400).json({'message':err.message});
-    }
-  });
 
-  /* PUT task */
-  router.put('/:id', async function(req, res, next) {
-    try {
-      res.json(await taskService._put(req.params.id, req.body));
-    } catch (err) {
-      console.error(`Error al actulizar task`, err.message);
-      res.status(400).json({'message':err.message});
-    }
-  });
+  try {
 
-  /* DELETE task */
-  router.delete('/:id', async function(req, res, next) {
-    try {
-      res.json(await taskService._delete(req.params.id));
-    } catch (err) {
-      console.error(`Error al leer task`, err.message);
-      res.status(400).json({'message':err.message});
+    const task =
+    {
+      description: body.description,
+      author: body.author,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
-  });  
+
+    const data = await taskService._post(task);
+
+    res.status(201);
+    res.json({ data: data });
+
+  } catch (err) {
+    res.status(400)
+    res.json({ data: err });
+  }
+});
+
+/* PUT task */
+router.put('/:id', async function (req, res, next) {
+  const { body = {} } = req;
+  const { params = {} } = req;
+  const { id = {} } = params;
+
+  try {
+
+    Object.assign(body, { updatedAt: new Date() })
+    const data = await taskService._put(id, body);
+    if (data) {
+      res.status(200);
+      res.json({ data: data });
+    } else {
+      res.status(404);
+      res.json({
+        statusCode: 404,
+        message: 'Document not found'
+      });
+    }
+
+  } catch (err) {
+    res.status(400)
+    res.json({ data: err });
+  }
+});
+
+/* DELETE task */
+router.delete('/:id', async function (req, res, next) {
+  const { params = {} } = req;
+  const { id = {} } = params;
+
+  try {
+
+    const data = await taskService._delete(id);
+
+    if (data) {
+      res.status(200);
+      res.json({ data: data });
+    } else {
+      res.status(404);
+      res.json({
+        statusCode: 404,
+        message: 'Document not found'
+      });
+    }
+
+  } catch (err) {
+    res.status(400)
+    res.json({ data: err });
+  }
+});
 
 module.exports = router;

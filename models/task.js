@@ -3,7 +3,6 @@ const _mongoose =  require('mongoose');
 const {Schema} = _mongoose;
 
 const fields = {
-    id: Number,
     description: String,
     author: {
         type: Schema.Types.ObjectId,
