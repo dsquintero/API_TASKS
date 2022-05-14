@@ -25,20 +25,26 @@ router.get('/:id', async function(req, res, next) {
 
 /* POST user */
 router.post('/', async function(req, res, next) {
+    const { body = {} } = req;
     try {      
-      var entitie = {
-        id:req.body.id,
-        description:req.body.description,
-        author:req.body.author,
+      const user = 
+      {
+        firstname:body.firstname,
+        lastname:body.lastname,
+        status: true,
         createdAt:new Date(),
         updatedAt:new Date()        
-      };
-      var userId = await userService._post(entitie);
-      res.json(entitie);
+      }
+
+      const data = await userService._post(user);
+      
+      res.status(201);
+      res.json({ data: data} );
 
     } catch (err) {
-      console.error(`Error al crear user`, err.message);
-      res.status(400).json({'message':err.message});
+    //   console.error(`Error al crear user`, err.message);
+    //   res.status(400).json({'message':err.message});
+        next(err);
     }
   });
 

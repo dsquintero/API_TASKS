@@ -1,6 +1,6 @@
 const Model =  require('../models/user')
 
-var lst_user = [];
+// var lst_user = [];
 
 async function _getAll()
 {
@@ -15,15 +15,8 @@ async function _get(id)
 async function _post(user)
 {  
   const document = new Model(user)
-  try {
-    const data  =  await document.save();
-    
-  } catch (error) {
-    
-  }
-
-  lst_user.push(user)
-  return user.id;
+  const data  =  await document.save();      
+  return data;
 }
 
 async function _put(id,user)
