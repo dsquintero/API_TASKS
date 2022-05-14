@@ -10,7 +10,8 @@ async function _getAll()
 
 async function _get(id)
 {
-  return lst_user.find(w => w.id == id);
+    const data  =  await Model.findById(id).exec();
+    return data;
 }
 
 async function _post(user)

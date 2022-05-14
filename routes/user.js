@@ -6,7 +6,7 @@ const userService = require('../services/user');
 /* GET ALL user */
 router.get('/', async function(req, res, next) {
   try {
-      
+
     const data = await userService._getAll();
       
     res.status(200);
@@ -21,11 +21,19 @@ router.get('/', async function(req, res, next) {
 
 /* GET BY ID user */
 router.get('/:id', async function(req, res, next) {
+    const { params = {} } = req;
+    const { id = {} } = params;
+
     try {
-      res.json(await userService._get(req.params.id));
+        const data = await userService._get(id);
+
+        res.status(200);
+        res.json({ data: data} );
+      
     } catch (err) {
-      console.error(`Error al leer user`, err.message);
-      res.status(400).json({'message':err.message});
+    //   console.error(`Error al leer user`, err.message);
+    //   res.status(400).json({'message':err.message});
+    next(err)
     }
   });
 
@@ -37,6 +45,7 @@ router.post('/', async function(req, res, next) {
       {
         firstname:body.firstname,
         lastname:body.lastname,
+        email: body.email,
         status: true,
         createdAt:new Date(),
         updatedAt:new Date()        
