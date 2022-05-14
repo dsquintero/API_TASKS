@@ -44,9 +44,9 @@ router.get('/:id', async function(req, res, next) {
         
       
     } catch (err) {
-    //   console.error(`Error al leer user`, err.message);
-    //   res.status(400).json({'message':err.message});
-    next(err)
+      console.error(`Error al leer user`, err.message);
+      res.status(400).json({'message':err.message});
+    //next(err)
     }
   });
 
@@ -84,8 +84,8 @@ router.post('/', async function(req, res, next) {
     try {
         const data = await userService._put(id,body);
         if(data){
-            res.status(204);
-            //res.json({ data: data} );
+            res.status(200);
+            res.json({ data: data} );
         }else{
             next({
                 statusCode:404,
@@ -107,8 +107,8 @@ router.post('/', async function(req, res, next) {
     try {
         const data = await userService._delete(id);
         if(data){
-            res.status(204);
-            //res.json({ data: data} );
+            res.status(200);
+            res.json({ data: data} );
         }else{
             next({
                 statusCode:404,

@@ -10,7 +10,7 @@ async function _getAll()
 
 async function _get(id)
 {
-    const data  =  await Model.findById(id).exec();
+    const data  =  await Model.findById(id,function (err, data) {}).exec() //{};
     return data;
 }
 
@@ -24,7 +24,7 @@ async function _post(user)
 async function _put(id,user)
 {
 
-    const data  = await Model.findByIdAndUpdate(id, user)
+    const data  = await Model.findByIdAndUpdate(id, user,{new: true})
     return data;
 }
 
