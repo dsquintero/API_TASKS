@@ -1,20 +1,27 @@
-# Grupo 2
+# Team 2
 ## Task API
 
-API para la administración de tareas(Task) personales.
+API for the administration of personal tasks.
 
-## Integrantes
+## Members
 - Juan Giraldo
 - Daniel Quintero
 - Joan Barrios
 
 ## Features
+### User
+- Get All Users.
+- Get User By ID.
+- Create User.
+- Update User.
+- Delete User.
 
-- Agregar nueva tarea.
-- Elimina tarea.
-- Edita tarea.
-- Lista Tareas.
-
+### Task
+- Get All Tasks.
+- Get Task By ID.
+- Create Task.
+- Update Task.
+- Delete Task.
 
 ## Tech
 
@@ -40,70 +47,20 @@ npm install
 ```
 
 ## REST API
-### Get list of Task
+### Get All Users
 #### Request
-
-GET /task/
-
-http://localhost:3000/api/task/
-
-### Get Task by Id
-#### Request
-
-GET /task/{id}
-
-http://localhost:3000/api/task/{id}
-
-### New Task
-#### Request
-
-POST /task/
-
-http://localhost:3000/api/task
-
-#### Request Body
-```sh
-{
-    "description":"Enviar Correo",
-    "author":"627f1f2eb22eaebf29d174db"
-}
-```
-
-### Update Task
-#### Request
-
-PUT /task/{id}
-
-http://localhost:3000/api/task/{id}
-
-#### Request Body
-```sh
-{
-    "description":"Enviar Correo",
-    "author":"627f1f2eb22eaebf29d174db"
-}
-```
-
-### Delete Task
-#### Request
-
-DELETE /task/{id}
-
-http://localhost:3000/api/task/{id}
-
-
 GET /user/
 
 http://localhost:3000/api/user/
 
-### Get User by Id
+### Get User By ID
 #### Request
 
 GET /user/{id}
 
 http://localhost:3000/api/user/{id}
 
-### New User
+### Create User
 #### Request
 
 POST /user/
@@ -113,7 +70,7 @@ http://localhost:3000/api/user
 #### Request Body
 ```sh
 {
-    "firstname": "Pedro",
+	"firstname": "Pedro",
 	"lastname": "Perez",
 	"email": "test@domain.com"
 }
@@ -129,7 +86,7 @@ http://localhost:3000/api/user/{id}
 #### Request Body
 ```sh
 {
-    "firstname":"Martinez"
+	"firstname":"Martinez"
 }
 ```
 
@@ -139,3 +96,54 @@ http://localhost:3000/api/user/{id}
 DELETE /user/{id}
 
 http://localhost:3000/api/user/{id}
+
+
+### Get All Tasks
+#### Request
+
+GET /task/
+
+http://localhost:3000/api/task/
+
+### Get Task By ID
+#### Request
+
+GET /task/{id}
+
+http://localhost:3000/api/task/{id}
+
+### Create Task
+#### Request
+
+POST /task/
+
+http://localhost:3000/api/task
+
+#### Request Body
+```sh
+{
+	"author":"{user_id}",
+	"description":"Task 1"
+}
+```
+
+### Update Task
+#### Request
+
+PUT /task/{id}
+
+http://localhost:3000/api/task/{id}
+
+#### Request Body
+```sh
+{
+    "description":"Task 2"
+}
+```
+
+### Delete Task
+#### Request
+
+DELETE /task/{id}
+
+http://localhost:3000/api/task/{id}
